@@ -32,14 +32,19 @@
     self.view.backgroundColor = GrayBG;
     self.title = @"我的主题";
     
-    UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, 44, 24);
-    backBtn.showsTouchWhenHighlighted = YES;
-    [backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"nav_back_highlighted"] forState:UIControlStateHighlighted];
-    [backBtn addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * backItem = [[[UIBarButtonItem alloc]initWithCustomView:backBtn]autorelease];
-    self.navigationItem.leftBarButtonItem = backItem;
+    T_Sys_Btn * queryBtn = [[[T_Sys_Btn alloc]initWithFrame:CGRectMake(250, 7, 60, 30)]autorelease];
+    [queryBtn setTitle:@"确认" forState:UIControlStateNormal];
+    [queryBtn addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem * queryItem = [[[UIBarButtonItem alloc]initWithCustomView:queryBtn]autorelease];
+    self.navigationItem.leftBarButtonItem = queryItem;
+    
+    T_Sys_Btn * normalBtn = [[[T_Sys_Btn alloc]initWithFrame:CGRectMake(250, 7, 60, 30)]autorelease];
+    [normalBtn setTitle:@"默认" forState:UIControlStateNormal];
+    [normalBtn addTarget:self action:@selector(normalSet) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem * normalItem = [[[UIBarButtonItem alloc]initWithCustomView:normalBtn]autorelease];
+    self.navigationItem.rightBarButtonItem = normalItem;
     
     themeImg = [[UIImageView new]autorelease];
     themeImg.frame = CGRectMake(0, 0, 240, 345);
@@ -55,7 +60,7 @@
     [self.view addSubview:themeImg];
     
     
-    UISlider * slider = [[[UISlider alloc]initWithFrame:CGRectMake(30, 345, 257, 30)]autorelease];
+    UISlider * slider = [[[UISlider alloc]initWithFrame:CGRectMake(30, 350, 257, 30)]autorelease];
     //colorSlider.png
     slider.minimumValue = 0;
     slider.maximumValue = 60;
@@ -154,7 +159,11 @@
      [aDic setObject:aC forKey:@"color"];
      [aDic writeToFile:file atomically:YES];
 //     NSLog(@"%@",aDic);
- 
+//     sysSetting.setColor = aC;
+}
+
+-(void)normalSet{
+    NSLog(@"normalSet!");
 }
 
 - (void)didReceiveMemoryWarning

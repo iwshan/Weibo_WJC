@@ -47,6 +47,39 @@
     UIBarButtonItem * backItem = [[[UIBarButtonItem alloc]initWithCustomView:backBtn]autorelease];
     self.navigationItem.leftBarButtonItem = backItem;
     
+    //________________________________________--------------------------------------
+    // 请求数据demo
+    T_Loading_View * aLoading = [[T_Loading_View new]autorelease];
+    [self.view addSubview:aLoading];
+
+    NSMutableDictionary * d = [NSMutableDictionary dictionary];
+//    NSLog(@"%@",cell.blog.Id);
+//    [d setValue:cell.blog.Id forKey:@"id"];
+    [d setValue:[NSString stringWithFormat:@"%@",self.aBlog.Id]  forKey:@"id"];
+    SystemCenter * sysSina = [SystemCenter getInstance];
+    SinaWeiboRequest * request = [sysSina.SysSina requestWithURL:@"place/nearby_users/list.json" params:d httpMethod:@"GET" delegate:nil];
+    [request setFinishBlock:^(NSMutableArray *arrData) {
+        self.commontArr = arrData;
+        [self.tableView reloadData];
+
+        NSLog(@"%@",arrData);
+        
+        [self.view bringSubviewToFront:aLoading];
+        [aLoading finishLoading];
+
+        for (NSObject * obj in self.commontArr) {
+//            ToMe * ablog = (ToMe *)obj;
+//            NSLog(@"%@",ablog.text);
+            NSLog(@"%@",obj);
+        }
+
+    }];
+
+    [request setFailBlock:^(SinaWeiboRequest *request, NSError * error) {
+        NSLog(@"error = %@",[error localizedDescription]);
+    }];
+    [request connect];
+
 }
 
 -(void)popBack{

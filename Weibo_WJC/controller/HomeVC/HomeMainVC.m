@@ -44,6 +44,10 @@
     return self;
 }
 
+//-(void)viewDidAppear:(BOOL)animated{
+//    NSLog(@"%@",self.view);
+//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -156,35 +160,35 @@
     [self.navigationController pushViewController:detailVC animated:YES];
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
-    T_Main_Cell * cell = (T_Main_Cell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    // 请求数据demo
-    T_Loading_View * aLoading = [[T_Loading_View new]autorelease];
-    [self.view addSubview:aLoading];
-    
-    SystemCenter * sysSina = [SystemCenter getInstance];
-    NSMutableDictionary * d = [NSMutableDictionary dictionaryWithCapacity:10];
-    NSLog(@"%@",cell.blog.Id);
-//    [d setValue:cell.blog.Id forKey:@"id"];
-    [d setValue:[NSString stringWithFormat:@"%@",cell.blog.Id]  forKey:@"id"];
-    SinaWeiboRequest * request = [sysSina.SysSina requestWithURL:@"place/nearby_users/list.json" params:d httpMethod:@"GET" delegate:nil];
-    [request setFinishBlock:^(NSMutableArray *arrData) {
-        self.dataSourc = arrData;
-        [self.tableView reloadData];
-        
-        [self.view bringSubviewToFront:aLoading];
-        [aLoading finishLoading];
-        
-        for (NSObject * obj in self.dataSourc) {
-            ToMe * ablog = (ToMe *)obj;
-            NSLog(@"%@",ablog.text);
-        }
-        
-    }];
-    
-    [request setFailBlock:^(SinaWeiboRequest *request, NSError * error) {
-        NSLog(@"error = %@",[error localizedDescription]);
-    }];
-    [request connect];
+//    T_Main_Cell * cell = (T_Main_Cell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+//    // 请求数据demo
+//    T_Loading_View * aLoading = [[T_Loading_View new]autorelease];
+//    [self.view addSubview:aLoading];
+//    
+//    SystemCenter * sysSina = [SystemCenter getInstance];
+//    NSMutableDictionary * d = [NSMutableDictionary dictionaryWithCapacity:10];
+//    NSLog(@"%@",cell.blog.Id);
+////    [d setValue:cell.blog.Id forKey:@"id"];
+//    [d setValue:[NSString stringWithFormat:@"%@",cell.blog.Id]  forKey:@"id"];
+//    SinaWeiboRequest * request = [sysSina.SysSina requestWithURL:@"place/nearby_users/list.json" params:d httpMethod:@"GET" delegate:nil];
+//    [request setFinishBlock:^(NSMutableArray *arrData) {
+//        self.dataSourc = arrData;
+//        [self.tableView reloadData];
+//        
+//        [self.view bringSubviewToFront:aLoading];
+//        [aLoading finishLoading];
+//        
+//        for (NSObject * obj in self.dataSourc) {
+//            ToMe * ablog = (ToMe *)obj;
+//            NSLog(@"%@",ablog.text);
+//        }
+//        
+//    }];
+//    
+//    [request setFailBlock:^(SinaWeiboRequest *request, NSError * error) {
+//        NSLog(@"error = %@",[error localizedDescription]);
+//    }];
+//    [request connect];
     
 }
 
