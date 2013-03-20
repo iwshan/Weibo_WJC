@@ -1,0 +1,70 @@
+// !!! BINARY PROPERTY LIST WARNING !!!
+//
+// The pretty-printed property list below has been created
+// from a binary version on disk and should not be saved as
+// the ASCII format is a subset of the binary representation!
+//
+(
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041502176";
+		text = "今天工作不高兴。做忍者。[闭嘴][闭嘴][闭嘴] 我在:http://t.cn/zYEuMLV";
+		thumbnail_pic = "http://ww2.sinaimg.cn/thumbnail/6f6c6a5ejw1e2haxhwl7oj.jpg";
+		screen_name = "午-後暖陽";
+		profile_image_url = "http://tp3.sinaimg.cn/1869376094/50/5656046264/0";
+	},
+	{	created_at = "Thu Mar 07 16:41:58 +0800 2013";
+		idstr = "3553256041502059";
+		text = "|您的帐号已获得惊喜，请立即进入→http://t.cn/zYEREre 领取!   @招财猫不吃鱼 @根正苗红安脱尼 @手机用户3007704555 @berry是大抠 @H_Mm995[吃惊]aJfNUVjO";
+		screen_name = "疯狂的心WYU";
+		profile_image_url = "http://tp2.sinaimg.cn/1627331313/50/0/1";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041502011";
+		text = "行货ME860就960了，买MOTO果然要剁手啊";
+		screen_name = "三千怨";
+		profile_image_url = "http://tp2.sinaimg.cn/1687012865/50/5655786075/1";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041316924";
+		text = "又快到下班时间了";
+		screen_name = "乱_Triste";
+		profile_image_url = "http://tp4.sinaimg.cn/3273103147/50/40017282585/1";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041316809";
+		text = "我在#三国来了#中天天虐Boss，嘿~这腰也不酸了，背也不疼了，一虐顶过去被虐！【张苞】纳命来~ http://t.cn/zOFnR0B";
+		screen_name = "手机用户3190027827";
+		profile_image_url = "http://tp4.sinaimg.cn/3190027827/50/0/1";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041316788";
+		text = "【寿命计算】经测算，@孙建华 的寿命居然是：74岁！哈哈，老了大家也要在一起呀！快~你们也来测测有多少岁：http://t.cn/zOa3F21";
+		thumbnail_pic = "http://ww1.sinaimg.cn/thumbnail/4388bcc6jw1e2haxi2aunj.jpg";
+		screen_name = "良善Selena";
+		profile_image_url = "http://tp3.sinaimg.cn/1133034694/50/5657267697/0";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041316761";
+		text = "评分：王宝泉斗法胜郎平 恒大外援高效难控大局,http://t.cn/zYPnEGD";
+		screen_name = "手机用户2521073291";
+		profile_image_url = "http://tp4.sinaimg.cn/2521073291/50/0/0";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256041316599";
+		text = "您是否还记得忧郁王子罗伯特巴乔那忧伤的背影 您是否还记得战神巴蒂斯图塔的英雄泪 您是否还记得超级皮波因扎吉的疯狂怒吼 您是否还记得...... 足球，这个世界上最伟大的运动，她让人魂牵梦绕，她让人欢喜悲伤 纵然时光流逝，那些美好的画面总是深深的印在你的脑海中 http://t.cn/zYEuMLJ";
+		screen_name = "SOCCERBAZAR";
+		profile_image_url = "http://tp1.sinaimg.cn/2432588520/50/40010036785/1";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256040849058";
+		text = "突然好想好想你,,.@-贾海婷很爱很爱他";
+		screen_name = "肖程宇只爱贾海婷";
+		profile_image_url = "http://tp2.sinaimg.cn/3165492481/50/5656644482/1";
+	},
+	{	created_at = "Thu Mar 07 16:41:59 +0800 2013";
+		idstr = "3553256040848907";
+		text = "三星I9228#移动MM@温州移动乐享生活 @瓯宝0716 @Miss_黄小瑞 @发愣中的石头   中个吧！";
+		screen_name = "叶子家的叶子yezi";
+		profile_image_url = "http://tp2.sinaimg.cn/2094158953/50/5657268792/1";
+	},
+)
