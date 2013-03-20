@@ -30,6 +30,16 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = GrayBG;
+    self.title = @"我的主题";
+    
+    UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 44, 24);
+    backBtn.showsTouchWhenHighlighted = YES;
+    [backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"nav_back_highlighted"] forState:UIControlStateHighlighted];
+    [backBtn addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * backItem = [[[UIBarButtonItem alloc]initWithCustomView:backBtn]autorelease];
+    self.navigationItem.leftBarButtonItem = backItem;
     
     themeImg = [[UIImageView new]autorelease];
     themeImg.frame = CGRectMake(0, 0, 240, 345);
@@ -122,6 +132,29 @@
    
     themeImg.backgroundColor = [UIColor colorWithRed:(self.rInt/255.0) green:(self.gInt/255.0) blue:(self.bInt/255.0) alpha:1];
     
+}
+
+/*此方法能用来设置系统颜色 此处留有备份 以便使用
+ */
+
+ -(void)popBack{
+     
+     [self.navigationController popViewControllerAnimated:YES];
+     
+     NSString * file = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+     file = [file stringByAppendingString:@"System Info.plist"];
+     
+     NSDictionary * aC = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat:@"%f",self.rInt],@"redVal",
+                          [NSString stringWithFormat:@"%f",self.bInt],@"blueVal",
+                          [NSString stringWithFormat:@"%f",self.gInt],@"greenVal",
+                          nil];
+     
+     NSMutableDictionary * aDic = [NSMutableDictionary dictionaryWithContentsOfFile:file];
+     [aDic setObject:aC forKey:@"color"];
+     [aDic writeToFile:file atomically:YES];
+//     NSLog(@"%@",aDic);
+ 
 }
 
 - (void)didReceiveMemoryWarning

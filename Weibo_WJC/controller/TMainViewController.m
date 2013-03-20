@@ -303,17 +303,6 @@
     
 }
 
-/*此方法能用来设置系统颜色 此处留有备份 以便使用
--(void)aaaa{
-    NSString * file = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    file = [file stringByAppendingString:@"System Info.plist"];
-    NSDictionary * aC = [NSDictionary dictionaryWithObjectsAndKeys:@"73",@"redVal",@"193",@"blueVal",@"233",@"greenVal", nil];
-    NSMutableDictionary * aDic = [NSMutableDictionary dictionaryWithContentsOfFile:file];
-    [aDic setObject:aC forKey:@"color"];
-    [aDic writeToFile:file atomically:YES];
-    NSLog(@"%@",aDic);
-}
-*/
 -(void)DisappearViewWith:(UIView *)aView{
     CGRect rect = aView.frame;
     CGRect mutRect = self.view.frame;
