@@ -37,8 +37,11 @@
 @property(nonatomic,assign)int  pid;
 @property(nonatomic,retain)NSString * annotations;
 @property(nonatomic,retain)NSString * deleted;
-
+@property(nonatomic,retain)NSString * Feature;
+//----------
 @property(nonatomic,assign)CellType type;
+
+
 
 -(Class)getUserClass;
 -(Class)getRetweetedstatusClass;

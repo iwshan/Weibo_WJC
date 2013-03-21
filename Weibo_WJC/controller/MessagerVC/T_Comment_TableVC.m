@@ -7,7 +7,6 @@
 //
 
 #import "T_Comment_TableVC.h"
-#import "ToMe.h"
 
 @interface T_Comment_TableVC ()
 
@@ -92,16 +91,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    T_Main_Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    T_Comments_Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[[T_Main_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
+        cell = [[[T_Comments_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
     }
     
-    Microblog * aBlog = [self.dataSourc objectAtIndex:indexPath.row];
+    ToMe * aBlog = [self.dataSourc objectAtIndex:indexPath.row];
     cell.blog = aBlog;
     
-    [cell setInfo];
+    [cell setFullInfo];
     return cell;
 }
 
@@ -114,6 +113,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    T_blogDetail_TableVC * detailVC = [[[T_blogDetail_TableVC alloc] initWithStyle:UITableViewStylePlain]autorelease];
+//    detailVC.aBlog = [dataSourc objectAtIndex:indexPath.row];
+//    [self.navigationController pushViewController:detailVC animated:YES];
+//    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
 @end

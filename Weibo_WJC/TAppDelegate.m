@@ -63,7 +63,7 @@
 
     ///吴比
     /**/
-    self.mySina = [[[SinaWeibo alloc]initWithAppKey:kWBSDKDemoAppKey appSecret:kWBSDKDemoAppSecret appRedirectURI:@"http://www.sina.com"  andDelegate:self]autorelease];
+    self.mySina = [[[SinaWeibo alloc]initWithAppKey:kWBSDKDemoAppKey appSecret:kWBSDKDemoAppSecret appRedirectURI:@"http://www.sina.com"  andDelegate:nil]autorelease];
     
     [self.mySina setDidLogInBlock:^(SinaWeibo *sinaweibo) {
         NSLog(@"登录成功！");
@@ -98,8 +98,8 @@
     
     [self.mySina logIn];
     
-    TMainViewController * mainVC = [[TMainViewController new]autorelease];
-    self.window.rootViewController = mainVC;
+//    TMainViewController * mainVC = [[TMainViewController new]autorelease];
+//    self.window.rootViewController = mainVC;
     
     [self.window makeKeyAndVisible];
     return YES;

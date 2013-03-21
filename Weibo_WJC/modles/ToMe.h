@@ -13,7 +13,7 @@
 @interface ToMe : NSObject
 
 @property(nonatomic,retain)NSString * createdat;
-@property(nonatomic,assign)int id;
+@property(nonatomic,retain)NSString * Id;
 @property(nonatomic,retain)NSString * text;
 @property(nonatomic,retain)NSString * source;
 @property(nonatomic,retain)User * user;

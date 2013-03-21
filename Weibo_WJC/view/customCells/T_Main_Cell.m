@@ -71,7 +71,6 @@
         commentLab.backgroundColor = ClearColor;
         commentLab.frame = CGRectMake(246, 7, 20, 12);
         
-        
         self.topView = [[UIView new]autorelease];
         self.topView.frame = CGRectMake(50, 2, 265, 26);
         self.topView.backgroundColor = ClearColor;
@@ -131,6 +130,7 @@
         
         self.reView = [[UIView new]autorelease];
         self.reView.backgroundColor = SysColorAlp3;
+        self.reView.layer.cornerRadius = 3;
         
         self.reTweetView = [[UIWebView new]autorelease];
         self.reTweetView.backgroundColor = ClearColor;
@@ -139,7 +139,6 @@
         self.reTweetView.opaque = NO;
         
         [self.reView addSubview:self.reTweetView];
-        self.reView.layer.cornerRadius = 3;
         [self addSubview:self.reView];
         
         self.reTweethumbImg = [[UIImageView new]autorelease];
@@ -189,6 +188,7 @@
     
 //    NSLog(@"%@",self.blog.bmiddlepic);时有时无
 //    NSLog(@"%@",self.blog.originalpic);
+    
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"ShowBigImg" object:aArr];
 
@@ -203,11 +203,11 @@
         self.userIcon.image = Img;
     }];
     
-    retweetLab.text = @"20"; //[NSString stringWithFormat:@"%d",self.blog.repostscount];
-//    NSLog(@"%@",self.blog.repostscount);//出来都是一亿以上的数
+    retweetLab.text = self.blog.repostscount; //[NSString stringWithFormat:@"%d",self.blog.repostscount];
+//    NSLog(@"%@",[self.blog.repostscount class]);//出来都是一亿以上的数
 //    NSLog(@"%@",self.blog.Id);
-    commentLab.text = @"20"; //[NSString stringWithFormat:@"%d",self.blog.commentscount];
-    goodLab.text = @"10"; //[NSString stringWithFormat:@"%d",self.blog.attitudescount];
+    commentLab.text = self.blog.commentscount; //[NSString stringWithFormat:@"%d",self.blog.commentscount];
+    goodLab.text = self.blog.attitudescount; //[NSString stringWithFormat:@"%d",self.blog.attitudescount];
     
 //    NSLog(@"%@",self.blog.createdat);//Sat Mar 16 10:39:19 +0800 2013 这尼玛是啥玩意啊
 //    NSLog(@"%@",self.blog.source);//这个值是个a标签 我情何以堪呐

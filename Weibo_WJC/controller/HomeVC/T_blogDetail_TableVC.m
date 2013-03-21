@@ -31,6 +31,39 @@
     return self;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    //________________________________________--------------------------------------
+    // 请求数据demo
+    T_Loading_View * aLoading = [[T_Loading_View new]autorelease];
+    [self.view addSubview:aLoading];
+    
+    NSMutableDictionary * d = [NSMutableDictionary dictionary];
+    //    NSLog(@"%@",cell.blog.Id);
+    //    [d setValue:cell.blog.Id forKey:@"id"];
+    [d setValue:[NSString stringWithFormat:@"%@",self.aBlog.Id]  forKey:@"id"];
+    SystemCenter * sysSina = [SystemCenter getInstance];
+    SinaWeiboRequest * request = [sysSina.SysSina requestWithURL:@"comments/show.json" params:d httpMethod:@"GET" delegate:nil];
+    [request setFinishBlock:^(NSMutableArray *arrData) {
+        self.commontArr = arrData;
+        //NSLog(@"%@",arrData);
+        [self.view bringSubviewToFront:aLoading];
+        [aLoading finishLoading];
+        
+//        for (NSObject * obj in self.commontArr) {
+//            ToMe * ablog = (ToMe *)obj;
+//            NSLog(@"%@",ablog.text);
+//            NSLog(@"%@",obj);
+//        }
+        
+        [self.tableView reloadData];
+    }];
+    
+    [request setFailBlock:^(SinaWeiboRequest *request, NSError * error) {
+        NSLog(@"error = %@",[error localizedDescription]);
+    }];
+    [request connect];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,39 +79,6 @@
     [backBtn addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * backItem = [[[UIBarButtonItem alloc]initWithCustomView:backBtn]autorelease];
     self.navigationItem.leftBarButtonItem = backItem;
-    
-    //________________________________________--------------------------------------
-    // 请求数据demo
-    T_Loading_View * aLoading = [[T_Loading_View new]autorelease];
-    [self.view addSubview:aLoading];
-
-    NSMutableDictionary * d = [NSMutableDictionary dictionary];
-//    NSLog(@"%@",cell.blog.Id);
-//    [d setValue:cell.blog.Id forKey:@"id"];
-    [d setValue:[NSString stringWithFormat:@"%@",self.aBlog.Id]  forKey:@"id"];
-    SystemCenter * sysSina = [SystemCenter getInstance];
-    SinaWeiboRequest * request = [sysSina.SysSina requestWithURL:@"place/nearby_users/list.json" params:d httpMethod:@"GET" delegate:nil];
-    [request setFinishBlock:^(NSMutableArray *arrData) {
-        self.commontArr = arrData;
-        [self.tableView reloadData];
-
-        NSLog(@"%@",arrData);
-        
-        [self.view bringSubviewToFront:aLoading];
-        [aLoading finishLoading];
-
-        for (NSObject * obj in self.commontArr) {
-//            ToMe * ablog = (ToMe *)obj;
-//            NSLog(@"%@",ablog.text);
-            NSLog(@"%@",obj);
-        }
-
-    }];
-
-    [request setFailBlock:^(SinaWeiboRequest *request, NSError * error) {
-        NSLog(@"error = %@",[error localizedDescription]);
-    }];
-    [request connect];
 
 }
 
@@ -99,8 +99,9 @@
     if (section == 0) {
         rows = 1;
     }else if(section == 1){
-//        rows = self.commontArr.count;
-        rows = 1;
+        rows = self.commontArr.count;
+        //NSLog(@"%d",self.commontArr.count);
+        if(self.commontArr.count == 0)NSLog(@"0");
     }
     
     return rows;
@@ -111,33 +112,46 @@
         T_Main_Cell * cell = (T_Main_Cell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         return cell.height;
     }else{
-        return [UIScreen mainScreen].bounds.size.height - 150;
+        T_Comments_Cell * cell = (T_Comments_Cell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.height;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        static NSString *CellIdentifier1 = @"Cell";
+
+        static NSString *CellIdentifier1 = @"Cell1";
         T_Main_Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
         if (cell == nil) {
             cell = [[[T_Main_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier1]autorelease];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.blog = aBlog;
+        //NSLog(@"%@",cell);
         [cell setInfo];
-        
         return cell;
+        
     }else{
-        static NSString *CellIdentifier2 = @"Cell";
-//        T_Prompt_A *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
-//        if (cell == nil) {
-//            cell = [[[T_Prompt_A alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2]autorelease];
-//        }
-        T_Prompt_B*cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+        static NSString *CellIdentifier2 = @"Cell2";
+        /*        T_Prompt_A *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+        if (cell == nil) {
+            cell = [[[T_Prompt_A alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2]autorelease];
+        }
+        T_Prompt_B * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
         if (cell == nil) {
             cell = [[[T_Prompt_B alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2]autorelease];
         }
+         */
+        
+        T_Comments_Cell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+        if (cell == nil) {
+            cell = [[[T_Comments_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2]autorelease];
+        }
+        
+        cell.blog = [self.commontArr objectAtIndex:indexPath.row];
+        [cell setInfo];
+        //NSLog(@"%@",cell);
         
         return cell;
     }
@@ -155,7 +169,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * aView = [[UIView new]autorelease];
     aView.frame = CGRectMake(0, 0, 320, 45);
-//    aView.backgroundColor = [UIColor grayColor];
+    aView.backgroundColor = GrayBG;
     
     UIButton * Btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     Btn1.frame = CGRectMake(10, 0, 70, 45);
@@ -185,7 +199,7 @@
     Lab2.textAlignment = NSTextAlignmentCenter;
     Lab2.backgroundColor = ClearColor;
     [aView addSubview:Lab2];
-*/
+     */
     
     UIView * stuLine = [[UIView new]autorelease];
     stuLine.frame = CGRectMake(80, 8, 1, 28);
@@ -201,10 +215,14 @@
     Btn2.titleLabel.font = GirlFonts16;
     [Btn2 setTitle:@"评论:0" forState:UIControlStateNormal];
     [Btn2 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [Btn2 setTitleColor:SysColor forState:UIControlStateHighlighted];
+    [Btn2 setTitleColor:SysColor forState:UIControlStateSelected];
+    Btn2.selected = YES;
     [Btn2 setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
     Btn2.titleLabel.shadowOffset = CGSizeMake(1, 1);
     [aView addSubview:Btn2];
+    
+    Btn2.selected = YES;
+    
     //NSLog(@"%d",self.aBlog.commentscount);//我一样情难以堪
     //2013-03-17 13:21:33.325 Weibo_WJC[3136:c07] 135502720
     /*
@@ -221,10 +239,7 @@
     Lab4.textAlignment = NSTextAlignmentCenter;
     Lab4.backgroundColor = ClearColor;
     [aView addSubview:Lab4];
-*/
-    
-    
-//    UIImageView * 
+     */
     
     UIImageView * bottomLine = [[UIImageView new]autorelease];
     bottomLine.frame = CGRectMake(5, 42, 310, 2);

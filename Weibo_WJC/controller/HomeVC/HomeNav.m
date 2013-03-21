@@ -28,7 +28,7 @@
     [super viewDidLoad];
     
     T_System_Setting * sysSetting = [T_System_Setting shareSystemInfo];
-    self.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 60);
+    self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight - 60);
     [self.navigationBar  setBackgroundImage:nav_Bg forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setBackgroundColor:SysColor];
     self.navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;

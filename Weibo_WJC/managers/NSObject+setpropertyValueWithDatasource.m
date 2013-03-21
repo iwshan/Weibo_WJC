@@ -51,7 +51,18 @@
         //拼接setXXX方法
         NSString * strSetMethod = [NSString stringWithFormat:@"%@%@%@",@"set",[strKey capitalizedString],@":"];
         SEL setMethod = NSSelectorFromString(strSetMethod);
-        [self performSelector:setMethod withObject:[dicData valueForKey:key]];
+        
+        NSString * ValStr;
+        if ([[dicData valueForKey:key] isKindOfClass:[NSNumber class]]) {
+            NSNumber * aNum = [dicData valueForKey:key];
+            ValStr = aNum.stringValue;
+//            NSLog(@"%@,%@",ValStr,key);
+            [self performSelector:setMethod withObject:ValStr];
+
+        }else{
+            [self performSelector:setMethod withObject:[dicData valueForKey:key]];
+        }
+        
     }
     return self;
 }

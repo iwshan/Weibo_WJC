@@ -36,7 +36,7 @@
         currIndex = 0;
         self.selected = 0;
         self.Controllers = [[NSMutableArray new] autorelease];
-        self.contentView = [[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 60)]autorelease];
+        self.contentView = [[UIView new]autorelease];
     }
     return self;
 }
@@ -50,6 +50,9 @@
     [super viewDidLoad];
     
     sysSetting = [T_System_Setting shareSystemInfo];
+    self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+    self.contentView = [[[UIView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight - 60)]autorelease];
+    
     [self.view addSubview:self.contentView];
     UIImageView * bgImg = [[UIImageView new]autorelease];
     bgImg.backgroundColor = SysColor;
@@ -59,8 +62,11 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     UIView * tabBarView = [[UIView new]autorelease];
-    tabBarView.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 60, 320, 40);
-    
+    tabBarView.frame = CGRectMake(0, screenHeight - 60, screenWidth, 40);
+    tabBarView.layer.shadowColor = [UIColor blackColor].CGColor;
+    tabBarView.layer.shadowOffset = CGSizeMake(0, -3);
+    tabBarView.layer.shadowOpacity = 0.4;
+    //tabBarView.layer.shadowRadius = 10;
     tabBarView.backgroundColor = SysColor;
     
     UIImage * homeImg = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"home" ofType:@"png"]];
@@ -157,16 +163,17 @@
             [aImgView setfinish:^(UIImage *Img) {
 //                NSLog(@"%@",Img);
                 aImgView.currntImg.image = Img;
-                aImgView.currntImg.frame = CGRectMake(0, 0, Img.size.width, Img.size.height);
+//                aImgView.currntImg.frame = CGRectMake(0, 0, Img.size.width, Img.size.height);
+                aImgView.currntImg.frame = [UIScreen mainScreen].bounds;
 //                aImgView.currntImg.center = CGPointMake(([UIScreen mainScreen].bounds.size.width)/2, ([UIScreen mainScreen].bounds.size.height)/2);
                 CGSize contentSize = [UIScreen mainScreen].bounds.size;
                 
-                if (Img.size.width>320) {
-                    contentSize.width = Img.size.width;
-                }
-                if (Img.size.height > [UIScreen mainScreen].bounds.size.height) {
-                    contentSize.height = Img.size.height;
-                }
+//                if (Img.size.width>320) {
+//                    contentSize.width = Img.size.width;
+//                }
+//                if (Img.size.height > [UIScreen mainScreen].bounds.size.height) {
+//                    contentSize.height = Img.size.height;
+//                }
                 
                 aImgView.ImgWin.contentSize = contentSize;
                 /*
