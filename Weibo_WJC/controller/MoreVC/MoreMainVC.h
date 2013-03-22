@@ -22,6 +22,7 @@
 @property(nonatomic,retain)UITableView * tableViewC;
 @property(nonatomic,retain)NSMutableArray * cellDataArray;
 @property(nonatomic,retain)NSMutableArray * cellNameArray;
+@property(nonatomic,retain)NSMutableArray * imageTitleArr;
 
 
 @end

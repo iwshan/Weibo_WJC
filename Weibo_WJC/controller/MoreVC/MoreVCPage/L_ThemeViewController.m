@@ -30,21 +30,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = GrayBG;
-    self.title = @"我的主题";
-    
-    T_Sys_Btn * queryBtn = [[[T_Sys_Btn alloc]initWithFrame:CGRectMake(250, 7, 60, 30)]autorelease];
-    [queryBtn setTitle:@"确认" forState:UIControlStateNormal];
-    [queryBtn addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem * queryItem = [[[UIBarButtonItem alloc]initWithCustomView:queryBtn]autorelease];
-    self.navigationItem.leftBarButtonItem = queryItem;
-    
-    T_Sys_Btn * normalBtn = [[[T_Sys_Btn alloc]initWithFrame:CGRectMake(250, 7, 60, 30)]autorelease];
-    [normalBtn setTitle:@"默认" forState:UIControlStateNormal];
-    [normalBtn addTarget:self action:@selector(normalSet) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem * normalItem = [[[UIBarButtonItem alloc]initWithCustomView:normalBtn]autorelease];
-    self.navigationItem.rightBarButtonItem = normalItem;
     
     themeImg = [[UIImageView new]autorelease];
     themeImg.frame = CGRectMake(0, 0, 240, 345);
@@ -60,7 +45,7 @@
     [self.view addSubview:themeImg];
     
     
-    UISlider * slider = [[[UISlider alloc]initWithFrame:CGRectMake(30, 350, 257, 30)]autorelease];
+    UISlider * slider = [[[UISlider alloc]initWithFrame:CGRectMake(30, 345, 257, 30)]autorelease];
     //colorSlider.png
     slider.minimumValue = 0;
     slider.maximumValue = 60;
@@ -137,33 +122,6 @@
    
     themeImg.backgroundColor = [UIColor colorWithRed:(self.rInt/255.0) green:(self.gInt/255.0) blue:(self.bInt/255.0) alpha:1];
     
-}
-
-/*此方法能用来设置系统颜色 此处留有备份 以便使用
- */
-
- -(void)popBack{
-     
-     [self.navigationController popViewControllerAnimated:YES];
-     
-     NSString * file = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-     file = [file stringByAppendingString:@"System Info.plist"];
-     
-     NSDictionary * aC = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat:@"%f",self.rInt],@"redVal",
-                          [NSString stringWithFormat:@"%f",self.bInt],@"blueVal",
-                          [NSString stringWithFormat:@"%f",self.gInt],@"greenVal",
-                          nil];
-     
-     NSMutableDictionary * aDic = [NSMutableDictionary dictionaryWithContentsOfFile:file];
-     [aDic setObject:aC forKey:@"color"];
-     [aDic writeToFile:file atomically:YES];
-//     NSLog(@"%@",aDic);
-//     sysSetting.setColor = aC;
-}
-
--(void)normalSet{
-    NSLog(@"normalSet!");
 }
 
 - (void)didReceiveMemoryWarning

@@ -30,7 +30,15 @@
         NSArray * nameArr7 = [NSArray arrayWithObjects:@"退出当前账号", nil];
         
         self.cellNameArray = [[[NSMutableArray alloc]initWithObjects:nameArr1,nameArr2,nameArr3,nameArr4,nameArr5,nameArr6,nameArr7, nil]autorelease];
-        
+        //
+        NSArray * imageArr1 = [NSArray arrayWithObjects:@"settings_queue_icon@2x", nil];
+        NSArray * imageArr2 = [NSArray arrayWithObjects:@"settings_accounts_icon@2x", nil];
+        NSArray * imageArr3 = [NSArray arrayWithObjects:@"settings_browsemode_icon@2x",@"settings_theme_icon@2x", nil];
+        NSArray * imageArr4 = [NSArray arrayWithObjects:@"settings_privacy_icon@2x",@"settings_security_icon@2x", nil];
+        NSArray * imageArr5 = [NSArray arrayWithObjects:@"settings_official_icon@2x",@"settings_feedback_icon@2x",@"settings_rate_icon@2x",@"settings_upgrade_icon@2x",@"settings_about_icon@2x", nil];
+        NSArray * imageArr6 = [NSArray arrayWithObjects:@"settings_recommend_icon@2x", nil];
+        NSArray * imageArr7 = [NSArray arrayWithObjects:@"settings_signout_icon@2x", nil];
+        self.imageTitleArr = [[[NSMutableArray alloc]initWithObjects:imageArr1,imageArr2,imageArr3,imageArr4,imageArr5,imageArr6,imageArr7 ,nil]autorelease];
         
     }
     return self;
@@ -40,6 +48,7 @@
 {
     self.tableViewC = nil;
     self.cellDataArray = nil;
+    self.imageTitleArr = nil;
     
     [super dealloc];
 }
@@ -103,9 +112,23 @@
     }
     
     // TODO: 计算出是哪组上哪行的Cell公式?
-    cell.textLabel.text = [((NSArray *)[self.cellNameArray objectAtIndex:indexPath.section])objectAtIndex:indexPath.row];
-
+    cell.titleLabel.text = [((NSArray *)[self.cellNameArray objectAtIndex:indexPath.section])objectAtIndex:indexPath.row];
+    NSString * imageTitle = [((NSArray *)[self.imageTitleArr objectAtIndex:indexPath.section])objectAtIndex:indexPath.row];
+    cell.iconImageView.image = [UIImage imageNamed:imageTitle];
+    if (indexPath.section == 0 && indexPath.row == 0)
+    {
+        NSString * textStr = @" 1  ";
+        CGSize titleSize = [textStr sizeWithFont:[UIFont fontWithName:@"Arial" size:20.0f]  constrainedToSize:CGSizeMake(MAXFLOAT, 20.0f)];
+        UILabel * deatilLabel = [[[UILabel alloc]initWithFrame:CGRectMake(260, 10, titleSize.width,titleSize.height)]autorelease];
+        deatilLabel.backgroundColor = [UIColor grayColor];
+        deatilLabel.textAlignment = NSTextAlignmentRight;
+        deatilLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        deatilLabel.textColor = [UIColor whiteColor];
+        deatilLabel.text = textStr;
+        [cell addSubview:deatilLabel];
+    }
     
+
     return cell;
     
 }
@@ -253,9 +276,15 @@
         
     }
     
+    [self performSelector:@selector(cellTime) withObject:nil afterDelay:0.00f];
+
 }
 
+#pragma mark ---取消Cell选中颜色----
+-(void)cellTime
+{
+    [self.tableViewC deselectRowAtIndexPath:[self.tableViewC indexPathForSelectedRow] animated:YES];
 
-
+}
 
 @end
