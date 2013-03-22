@@ -26,7 +26,6 @@
 
 -(void)dealloc
 {
-    self.infoLabel = nil;
     self.qrCodeImgV = nil;
     
     [super dealloc];
@@ -58,18 +57,12 @@
     [self.view addSubview:shareQrCodeButton];
     
     UIButton * swapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    swapButton.frame = CGRectMake(50, 310, 220, 35);
+    swapButton.frame = CGRectMake(50, 320, 220, 35);
     [swapButton setTitle:@"扫描二维码" forState:UIControlStateNormal];
     [swapButton addTarget:self
                    action:@selector(actionSwapButton:)
          forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:swapButton];
-    //
-    self.infoLabel = [[[UILabel alloc]initWithFrame:CGRectMake(0,345, 320, 30)]autorelease];
-    self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.text = @"test扫描结果";
-    self.infoLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.infoLabel];
         
 }
 

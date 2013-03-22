@@ -100,28 +100,6 @@
     [self.view addSubview:self.contentView];
     [self.view addSubview:customTab];
     
-    /*
-    T_Mention_TableVC * mentionVC = [[T_Mention_TableVC new]autorelease];
-    mentionVC.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 104);
-    [self.Controllers addObject:mentionVC];
-    
-    T_Comment_TableVC * commentVC = [[T_Comment_TableVC new]autorelease];
-    commentVC.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 104);
-    [self.Controllers addObject:commentVC];
-    
-    T_Messages_TableVC * messageVC = [[T_Messages_TableVC new]autorelease];
-    messageVC.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 104);
-    [self.Controllers addObject:messageVC];
-    
-        t_no * messageVC = [[T_Messages_TableVC new]autorelease];
-        messageVC.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 104);
-        [self.Controllers addObject:messageVC];
-    
-    self.currVC = [self.Controllers objectAtIndex:currIndex];
-    [self.contentView addSubview:self.currVC.view];
-    
-    */
-    
     L_WaveViewController * waveVC = [[[L_WaveViewController alloc]init]autorelease];
     waveVC.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 104);
     [self.Controllers addObject:waveVC];

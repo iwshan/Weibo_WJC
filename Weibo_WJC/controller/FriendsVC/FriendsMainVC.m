@@ -19,9 +19,12 @@
     self = [super init];
     if (self)
     {
-        self.cellDataArray = [[[NSMutableArray alloc]init]autorelease];
-        [self.cellDataArray addObject:@"最近无联系人"];
         self.headCellDataArr = [NSMutableArray arrayWithObjects:@"最近联系人",@"全部关注",@"相互关注", @"名人明星",@"同事",@"特别关注",@"同学",@"未分组",@"粉丝",nil];
+        //
+        NSMutableArray * tempCellDataArr0 = [NSMutableArray arrayWithObjects:@"找朋友", nil];
+        NSMutableArray * tempCellDataArr1 = [NSMutableArray arrayWithObjects:@"用户名", nil];
+        self.cellDataArray = [NSMutableArray arrayWithObjects:tempCellDataArr0,tempCellDataArr1, nil];
+        
         
     }
     return self;
@@ -40,14 +43,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden = YES;
-    UIBarButtonItem * homeButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"popover_icon_gohome@2x"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(actionHomeButton:)];
-    
-    self.navigationItem.rightBarButtonItem = homeButton;
-    [homeButton release];
-    
 }
 
 - (void)viewDidLoad
@@ -59,12 +54,16 @@
                                                  style:UITableViewStylePlain]autorelease];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     [self.view addSubview:self.tableView];
-    
-    // NAVC:
+    // 加载头部View：
+    [self addHeadView];
+    // add NAV
+    T_System_Setting * sysSetting = [T_System_Setting shareSystemInfo];
     UIView * navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    navView.backgroundColor = [UIColor yellowColor];
+    [navView setBackgroundColor:SysColor];
+    navView.layer.shadowColor = [UIColor blackColor].CGColor;
+    navView.layer.shadowOffset = CGSizeMake(0, 3);
+    navView.layer.shadowOpacity = 0.4;
     [self.view addSubview:navView];
     [navView release];
     //
@@ -72,17 +71,13 @@
     [self.headViewButton setTitle:@"最近联系人" forState:UIControlStateNormal];
     self.headViewButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:20];
     [self.headViewButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.headViewButton.frame = CGRectMake(100, 5, 150, 44);
-    self.headViewButton.center = navView.center;
+    self.headViewButton.frame = CGRectMake(100, 0, 120, 44);
     self.headViewButton.backgroundColor = [UIColor clearColor];
     [self.headViewButton setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [self.headViewButton addTarget:self
-                       action:@selector(actionHeadViewButton:)
-             forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.headViewButton];
-    // 加载头部View：
-    [self addHeadView];
-    
+                            action:@selector(actionHeadViewButton:)
+                  forControlEvents:UIControlEventTouchUpInside];
+    [navView addSubview:self.headViewButton];
     
 }
 #pragma mark -----addHeadView：
@@ -91,6 +86,8 @@
     self.headInserV = [[[L_HeadInsertView alloc]initWithFrame:CGRectMake(80, 44, 320-160, 225)]autorelease];
     self.headInserV.tableView.delegate = self;
     self.headInserV.tableView.dataSource = self;
+    // 隐藏分割线：
+    self.headInserV.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.headInserV.backgroundColor = [UIColor blackColor];
     self.headInserV.alpha = 0.85f;
     self.headInserV.hidden = YES;
@@ -117,7 +114,6 @@
         {
             cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier]autorelease];
         }
-        
         cell.textLabel.text = [self.headCellDataArr objectAtIndex:indexPath.row];
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.textLabel.font = [UIFont fontWithName:@"Arial" size:14];
@@ -148,27 +144,36 @@
         if (0 == indexPath.section)
         {
             cell.textLabel.text = @"找朋友";
-            
+            cell.imageView.image = [UIImage imageNamed:@"findfriends_icon@2x"];
+
         }
         else if (1 == indexPath.section)
         {
             // TODO: 加 Button:
             cell.textLabel.text = @"用户名";
+            cell.imageView.image = [UIImage imageNamed:@"findfriends_icon@2x"];
             //
             UIButton * weiboButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            weiboButton.frame = CGRectMake(170, 3, 44, 44);
+            weiboButton.frame = CGRectMake(130, 3, 55, 44);
             weiboButton.tag = 1100;
-            [weiboButton setTitle:@"weibo" forState:UIControlStateNormal];
+            NSString * weibStr = [NSString stringWithFormat:@"%@\n微博",@"45"];
+            [weiboButton setTitle:weibStr forState:UIControlStateNormal];
+            weiboButton.titleLabel.numberOfLines = 2;
+            weiboButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            weiboButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [weiboButton addTarget:self
                             action:@selector(actionCellButtonS1:)
                   forControlEvents:UIControlEventTouchUpInside];
-            
             [cell addSubview:weiboButton];
             //
             UIButton * collectionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            collectionButton.frame = CGRectMake(170+50, 3, 44,44);
+            collectionButton.frame = CGRectMake(130+60, 3, 55,44);
             collectionButton.tag = 1101;
-            [collectionButton setTitle:@"col" forState:UIControlStateNormal];
+            NSString * colStr = [NSString stringWithFormat:@"%@\n收藏",@"47"];
+            [collectionButton setTitle:colStr forState:UIControlStateNormal];
+            collectionButton.titleLabel.numberOfLines = 2;
+            collectionButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            collectionButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [collectionButton addTarget:self
                                  action:@selector(actionCellButtonS1:)
                        forControlEvents:UIControlEventTouchUpInside];
@@ -176,9 +181,13 @@
             [cell addSubview:collectionButton];
             //
             UIButton * fansButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            fansButton.frame = CGRectMake(170+50+50, 3, 44,44);
+            fansButton.frame = CGRectMake(130+60+60, 3, 55,44);
             fansButton.tag = 1102;
-            [fansButton setTitle:@"fans" forState:UIControlStateNormal];
+            NSString * fanStr = [NSString stringWithFormat:@"%@\n粉丝",@"100"];
+            [fansButton setTitle:fanStr forState:UIControlStateNormal];
+            fansButton.titleLabel.numberOfLines = 2;
+            fansButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            fansButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [fansButton addTarget:self
                            action:@selector(actionCellButtonS1:)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -225,6 +234,8 @@
         }
         
     }
+    [self performSelector:@selector(cellTime) withObject:nil afterDelay:0.00f];
+
 
 }
 
@@ -391,7 +402,6 @@
     
 }
 
-
 #pragma mark -----HeadViewActionButton:
 -(void)actionHeadViewButton:(UIButton *)sender
 {
@@ -405,6 +415,7 @@
         self.headInserV.hidden = YES;
     }
 }
+
 
 -(void)actionHeadUpdataBtn:(UIButton *)sender
 {
@@ -420,11 +431,11 @@
 
 }
 
--(void)actionHomeButton:(UIBarButtonItem *)sender
+#pragma mark ---取消Cell选中颜色----
+-(void)cellTime
 {
-    NSLog(@"%s",__func__);
-    //返回到Home页面：
-    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.headInserV.tableView deselectRowAtIndexPath:[self.headInserV.tableView indexPathForSelectedRow] animated:YES];
 }
 
 @end

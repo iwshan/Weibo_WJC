@@ -15,6 +15,8 @@
 #import "L_CollectionViewController.h"
 #import "L_WeiboPageViewController.h"
 
+#import "FriendsNav.h"
+
 
 @interface FriendsMainVC : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {

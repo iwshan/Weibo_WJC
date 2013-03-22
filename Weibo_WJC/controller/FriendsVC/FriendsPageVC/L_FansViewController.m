@@ -39,8 +39,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    T_System_Setting * sysSetting = [T_System_Setting shareSystemInfo];
     UIView * navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    navView.backgroundColor = [UIColor blueColor];
+    [navView setBackgroundColor:SysColor];
+    navView.layer.shadowColor = [UIColor blackColor].CGColor;
+    navView.layer.shadowOffset = CGSizeMake(0, 3);
+    navView.layer.shadowOpacity = 0.4;
     [self.view addSubview:navView];
     [navView release];
     //
@@ -55,7 +59,8 @@
     
     UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 44, 44);
-    [backButton setImage:[UIImage imageNamed:@"navigationbar_back_highlighted"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"nav_back_highlighted"] forState:UIControlStateHighlighted];
     [backButton addTarget:self
                    action:@selector(actionBackButton:)
          forControlEvents:UIControlEventTouchUpInside];
@@ -133,9 +138,7 @@
 
 -(void)actionHomeButton:(UIButton *)sender
 {
-    HomeMainVC * homeMainV = [[HomeMainVC alloc]init];
-    [self.navigationController pushViewController:homeMainV animated:YES];
-    [homeMainV release];
+
 
 }
 

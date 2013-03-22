@@ -10,4 +10,7 @@
 
 @interface FriendsNav : UINavigationController
 
+
+@property(nonatomic,assign)BOOL isHeadViewHidden;
+
 @end

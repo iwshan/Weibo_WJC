@@ -12,7 +12,6 @@
 
 
 @property(nonatomic,retain)UIImageView * qrCodeImgV;
-@property(nonatomic,retain)UILabel * infoLabel;
 
 
 @end

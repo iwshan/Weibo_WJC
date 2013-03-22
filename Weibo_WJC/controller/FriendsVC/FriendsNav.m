@@ -17,8 +17,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
+        self.isHeadViewHidden = YES;
     }
     return self;
 }
@@ -27,13 +29,16 @@
 {
     [super viewDidLoad];
 //	
-//    [super viewDidLoad];
     self.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height - 60);
-//    UIView * aView = [[UIView new]autorelease];
-//    aView.frame = CGRectMake(0, 0, 320, 44);
-//    aView.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:aView];
-
+    
+    T_System_Setting * sysSetting = [T_System_Setting shareSystemInfo];
+    
+    [self.navigationBar  setBackgroundImage:nav_Bg forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar setBackgroundColor:SysColor];
+    self.navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.navigationBar.layer.shadowOffset = CGSizeMake(0, 3);
+    self.navigationBar.layer.shadowOpacity = 0.4;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
